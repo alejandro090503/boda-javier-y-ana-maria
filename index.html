@@ -1704,6 +1704,9 @@ body > section, body > footer{isolation:isolate}
 .vs-dots{display:flex;justify-content:center;gap:9px;margin-top:14px}
 .vs-dots button{width:9px;height:9px;border-radius:50%;border:none;background:rgba(151,126,171,.35);cursor:pointer;padding:0;transition:background .25s,transform .25s}
 .vs-dots button.active{background:#5E4775;transform:scale(1.3)}
+.vs-who{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;font-weight:700;color:#8C6A12;margin:0 0 8px}
+.vs-card{animation:levitate 6.5s ease-in-out infinite}.vs-card.vs-2{margin-top:22px;animation-delay:-2.2s}
+@media(prefers-reduced-motion:reduce){.vs-card{animation:none}}
 .loc-punct{text-align:center;max-width:330px;margin:-18px auto 30px;font-size:18px;font-weight:700;color:#2B2036;line-height:1.5;text-shadow:0 0 12px #FFFDF8,0 0 2px #FFFDF8}
 @media(prefers-reduced-motion:reduce){.verse-card{animation:none}.vs-track{transition:none}}
 
@@ -2213,15 +2216,30 @@ body > section, body > footer{isolation:isolate}
   <h2 class="ttl foil-text">Nuestro amor en la Palabra</h2>
   <div class="gline"></div>
   <div class="vs-card">
+    <p class="vs-who">De la novia · Ana María</p>
     <div class="vs-carousel">
       <button class="vs-arrow prev" type="button" aria-label="Anterior"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
       <button class="vs-arrow next" type="button" aria-label="Siguiente"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-      <div class="vs-viewport"><div class="vs-track" id="vsTrack">
-        <figure class="vs-slide"><blockquote class="vs-txt">«Encontré al amor de mi vida; lo abracé y no lo soltaré.»</blockquote><figcaption class="vs-ref">Cantares 3:4</figcaption></figure>
-        <figure class="vs-slide"><blockquote class="vs-txt">«Yo soy de mi amado, y mi amado es mío.»</blockquote><figcaption class="vs-ref">Cantar de los Cantares 2:16</figcaption></figure>
-        <figure class="vs-slide"><blockquote class="vs-txt">«El amor es paciente, es bondadoso. El amor todo lo disculpa, todo lo cree, todo lo espera, todo lo soporta.»</blockquote><figcaption class="vs-ref">1 Corintios 13:4,7</figcaption></figure>
+      <div class="vs-viewport"><div class="vs-track">
+          <figure class="vs-slide"><blockquote class="vs-txt">«Encontré al amor de mi vida; lo abracé y no lo soltaré.»</blockquote><figcaption class="vs-ref">Cantares 3:4</figcaption></figure>
+          <figure class="vs-slide"><blockquote class="vs-txt">«Yo soy de mi amado, y mi amado es mío.»</blockquote><figcaption class="vs-ref">Cantar de los Cantares 2:16</figcaption></figure>
+          <figure class="vs-slide"><blockquote class="vs-txt">«El amor es paciente, es bondadoso. El amor todo lo disculpa, todo lo cree, todo lo espera, todo lo soporta.»</blockquote><figcaption class="vs-ref">1 Corintios 13:4,7</figcaption></figure>
       </div></div>
-      <div class="vs-dots" id="vsDots"><button class="active" type="button" aria-label="Versículo 1"></button><button type="button" aria-label="Versículo 2"></button><button type="button" aria-label="Versículo 3"></button></div>
+      <div class="vs-dots"><button class="active" type="button" aria-label="Versículo 1"></button><button type="button" aria-label="Versículo 2"></button><button type="button" aria-label="Versículo 3"></button></div>
+    </div>
+  </div>
+
+  <div class="vs-card vs-2">
+    <p class="vs-who">Del novio · Javier</p>
+    <div class="vs-carousel">
+      <button class="vs-arrow prev" type="button" aria-label="Anterior"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="vs-arrow next" type="button" aria-label="Siguiente"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <div class="vs-viewport"><div class="vs-track">
+          <figure class="vs-slide"><blockquote class="vs-txt">«El que halla esposa halla el bien, y alcanza la benevolencia de Jehová.»</blockquote><figcaption class="vs-ref">Proverbios 18:22</figcaption></figure>
+          <figure class="vs-slide"><blockquote class="vs-txt">«Goza de la vida con la mujer que amas, todos los días de la vida de tu vanidad que te son dados debajo del sol.»</blockquote><figcaption class="vs-ref">Eclesiastés 9:9</figcaption></figure>
+          <figure class="vs-slide"><blockquote class="vs-txt">«Mujer ejemplar, ¿dónde se hallará? ¡Es más valiosa que las piedras preciosas!»</blockquote><figcaption class="vs-ref">Proverbios 31:10</figcaption></figure>
+      </div></div>
+      <div class="vs-dots"><button class="active" type="button" aria-label="Versículo 1"></button><button type="button" aria-label="Versículo 2"></button><button type="button" aria-label="Versículo 3"></button></div>
     </div>
   </div>
 </section>
@@ -4238,27 +4256,27 @@ if(window.initSectionFades){initSectionFades();var _fr;addEventListener("resize"
 })();
 </script>
 <script>
-/* Versículos · carrusel con flechas, puntos, swipe y avance suave */
+/* Versículos · un carrusel por cada novio (flechas, puntos, swipe y avance suave) */
 (function(){
-  var track=document.getElementById('vsTrack'); if(!track) return;
-  var n=track.children.length, dots=document.querySelectorAll('#vsDots button'), idx=0, timer=null, touched=false;
   var RMv=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function go(i){ idx=(i+n)%n; track.style.transform='translateX('+(-idx*100)+'%)'; dots.forEach(function(d,k){ d.classList.toggle('active',k===idx); }); }
-  function stop(){ touched=true; clearInterval(timer); }
-  var box=track.closest('.vs-carousel');
-  box.querySelector('.vs-arrow.prev').addEventListener('click',function(){ stop(); go(idx-1); });
-  box.querySelector('.vs-arrow.next').addEventListener('click',function(){ stop(); go(idx+1); });
-  dots.forEach(function(d,k){ d.addEventListener('click',function(){ stop(); go(k); }); });
-  var sx=0,sy=0;
-  track.addEventListener('touchstart',function(e){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; },{passive:true});
-  track.addEventListener('touchend',function(e){ var dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
-    if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){ stop(); go(dx<0?idx+1:idx-1); } },{passive:true});
-  if(!RMv && 'IntersectionObserver' in window){
-    new IntersectionObserver(function(en){ en.forEach(function(e){
-      clearInterval(timer); if(e.isIntersecting && !touched) timer=setInterval(function(){ go(idx+1); },7000);
-    }); },{threshold:.4}).observe(box);
-  }
-  go(0);
+  document.querySelectorAll('.vs-carousel').forEach(function(box, bi){
+    var track=box.querySelector('.vs-track'), n=track.children.length, dots=box.querySelectorAll('.vs-dots button'), idx=0, timer=null, touched=false;
+    function go(i){ idx=(i+n)%n; track.style.transform='translateX('+(-idx*100)+'%)'; dots.forEach(function(d,k){ d.classList.toggle('active',k===idx); }); }
+    function stop(){ touched=true; clearInterval(timer); }
+    box.querySelector('.vs-arrow.prev').addEventListener('click',function(){ stop(); go(idx-1); });
+    box.querySelector('.vs-arrow.next').addEventListener('click',function(){ stop(); go(idx+1); });
+    dots.forEach(function(d,k){ d.addEventListener('click',function(){ stop(); go(k); }); });
+    var sx=0,sy=0;
+    track.addEventListener('touchstart',function(e){ sx=e.touches[0].clientX; sy=e.touches[0].clientY; },{passive:true});
+    track.addEventListener('touchend',function(e){ var dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+      if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)){ stop(); go(dx<0?idx+1:idx-1); } },{passive:true});
+    if(!RMv && 'IntersectionObserver' in window){
+      new IntersectionObserver(function(en){ en.forEach(function(e){
+        clearInterval(timer); if(e.isIntersecting && !touched) timer=setInterval(function(){ go(idx+1); }, 7000 + bi*900);
+      }); },{threshold:.4}).observe(box);
+    }
+    go(0);
+  });
 })();
 </script>
 </body>
