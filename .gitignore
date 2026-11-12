@@ -2,3 +2,6 @@
 original.mp3
 cancion.mp3
 .env*
+
+.vercel
+.env*
